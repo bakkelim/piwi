@@ -1,0 +1,96 @@
+<section ng-controller="HomeController" ng-init="findProducts(); expiredPurchases(); expiresPurchases();">
+  <!--<div class="jumbotron text-center">-->
+    <!--<div class="row">
+      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
+        <div class="text-center">
+          <img alt="PIWI" class="img-responsive" width="30%" height="30%" src="modules/core/client/img/brand/piwi.png" />
+          <h1>PIWI</h1>
+        </div>
+      </div>
+    </div>-->
+    <!--<div class="media">
+      <div class="media-left">       
+          <img class="media-object" src="modules/core/client/img/brand/piwi.png" alt="PIWI">      
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">PIWI</h4>
+        Product Information Web Interface
+      </div>
+    </div>-->
+    <!--<h1>PIWI</h1>-->
+    <!--<br>    -->
+    <!--<h2><b> Product Information Web Interface</b></h2>-->
+      <!--<h2 class="small">
+        Product Information Web Interface
+      </h2>-->
+
+  <!--</div>-->
+
+  <section ng-if="expired.length">
+    <div class="page-header">     
+      <h3>Expired</h3>       
+    </div>
+    <div class="list-group">
+      <a ng-repeat="purchase in expired" ui-sref="purchases.view({purchaseId: purchase._id})" class="list-group-item" set-sss-status expires="purchase.annualFees[0].expires">
+        <small class="list-group-item-text pull-right">
+          Created on
+          <span ng-bind="purchase.created | date:'mediumDate'"></span>
+          by
+          <span ng-bind="purchase.createdBy.displayName"></span>
+        </small>
+        <h4 class="list-group-item-heading">
+          {{purchase.product.title}} - {{purchase.company.name}}
+        </h4>      
+        <p class="list-group-item-text">       
+          <b>Price:</b> {{purchase.price}}   
+          <b>Annual fee:</b> {{purchase.annualFees[0].fee}}          
+          <b>$$$ expires:</b> {{purchase.annualFees[0].expires | date:'dd.MM.yyyy'}}     
+        </p>
+      </a>
+    </div>
+  </section>
+  <section ng-if="expires.length">
+    <div class="page-header">     
+      <h3>Expires soon</h3>       
+    </div>
+    </div>
+    <div class="list-group">
+      <a ng-repeat="purchase in expires" ui-sref="purchases.view({purchaseId: purchase._id})" class="list-group-item" set-sss-status expires="purchase.annualFees[0].expires">
+        <small class="list-group-item-text pull-right">
+          Created on
+          <span ng-bind="purchase.created | date:'mediumDate'"></span>
+          by
+          <span ng-bind="purchase.createdBy.displayName"></span>
+        </small>
+        <h4 class="list-group-item-heading">
+          {{purchase.product.title}} - {{purchase.company.name}}
+        </h4>      
+        <p class="list-group-item-text">       
+          <b>Price:</b> {{purchase.price}}   
+          <b>Annual fee:</b> {{purchase.annualFees[0].fee}}          
+          <b>$$$ expires:</b> {{purchase.annualFees[0].expires | date:'dd.MM.yyyy'}}     
+        </p>
+      </a>
+    </div>
+  </section>
+  <section ng-if="newProducts.length">
+    <div class="page-header">     
+      <h3>New releases</h3>       
+    </div>
+    <div class="list-group">
+      <a ng-repeat="product in newProducts" ui-sref="products.view({productId: product._id})" class="list-group-item">
+        <h4 class="list-group-item-heading">
+          {{product.title}} 
+          <span class="small">{{product.versions[product.versions.length - 1].label}}</span>
+          <span class="small pull-right">{{product.code}}</span>   
+        </h4> 
+      </a>
+    </div>
+  </section>
+  <section ng-if="!expired.length && !expired.length && !newProducts.length">
+    <br/>
+    <div class="alert alert-warning text-center" >
+      No news to report!
+    </div>
+  </section>
+</section>

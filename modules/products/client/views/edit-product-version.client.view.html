@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-2">
+    <div class="form-group" show-errors>
+      <input name="version{{vm.index}}" type="text" ng-model="vm.version.label" id="version{{vm.index}}" class="form-control" placeholder="Product version" required />
+      <div ng-messages="productForm.version.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Product version is required.</p>
+      </div>
+    </div>
+  </div>              
+  <div class="col-md-2">
+    <div class="form-group" show-errors>
+      <p class="input-group">
+        <input name="released{{vm.index}}" type="text" ng-model="vm.version.released" id="released{{vm.index}}" class="form-control" placeholder="Release date" ng-required="true" uib-datepicker-popup="dd.MM.yyyy" is-open="vm.opened"  close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="vm.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+      <div ng-messages="productForm.released.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Release date is required.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <input type="button" ng-click="vm.remove()" value="Remove" class="btn btn-default" />
+  </div>
+</div>

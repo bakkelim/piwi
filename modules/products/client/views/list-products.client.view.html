@@ -1,0 +1,35 @@
+<section ng-controller="ProductsController" ng-init="find()">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Products</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" />
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="product in products | filter:search" ui-sref="products.view({productId: product._id})" class="list-group-item">
+      <!--<small class="list-group-item-text pull-right">
+        Created on
+        <span ng-bind="product.created | date:'mediumDate'"></span>
+        by
+        <span ng-bind="product.createdBy.displayName"></span>
+      </small>-->
+      <h4 class="list-group-item-heading">
+        {{product.title}} 
+        <span class="small">{{product.code}}</span> 
+      </h4>      
+      <p class="list-group-item-text">       
+        <b>Price:</b> {{product.price}}
+        <b>Annual:</b> {{product.annualFee}}
+        <b>Owner:</b> {{product.owner.displayName}}
+        <b>Latest version:</b> {{product.versions[0].label}}
+      </p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="products.$resolved && !products.length">
+    No products yet, why don't you <a ui-sref="products.create">create one</a>?
+  </div>
+</section>

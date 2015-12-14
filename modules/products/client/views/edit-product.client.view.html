@@ -1,0 +1,83 @@
+<section ng-controller="ProductsController" ng-init="findOne(); findUsers();">
+  <div class="page-header">
+    <h1>Edit Product</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="productForm" class="form-horizontal" ng-submit="update(productForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="title">Title</label>
+          <input name="title" type="text" ng-model="product.title" id="title" class="form-control" placeholder="Title" required>
+          <div ng-messages="productForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Product title is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="code">Code</label>
+          <input name="code" type="text" ng-model="product.code" id="code" class="form-control" placeholder="Product code" required>
+          <div ng-messages="productForm.code.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Product code is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="price">Price</label>
+          <input name="price" type="number" ng-model="product.price" id="price" class="form-control" placeholder="Product price" required>
+          <div ng-messages="productForm.price.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Product price is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label for="annualFee">Annual Fee</label>
+          <input name="annualFee" type="text" ng-model="product.annualFee" id="annualFee" class="form-control" placeholder="Product $$$" required>
+          <div ng-messages="productForm.annualFee.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Product $$$ is required.</p>
+          </div>
+        </div>     
+        
+        <div class="form-group">
+          <label for="owner">Product Owner</label>
+          <ui-select ng-model="$parent.product.owner">
+            <ui-select-match>
+              <span ng-bind="$select.selected.displayName"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="user in (users | filter: $select.search) track by user._id">
+              <span ng-bind="user.displayName"></span>
+            </ui-select-choices>
+          </ui-select>        
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea name="description" ng-model="product.description" id="description" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
+        </div>
+           
+        <div class="row">
+          <div class="col-md-2">       
+            <div class="form-group">     
+              <label for="version">Version</label>   
+            </div>         
+          </div>              
+          <div class="col-md-2"> 
+            <div class="form-group">             
+              <label for="released">Release date</label> 
+            </div>
+          </div>           
+        </div>
+        <div ng-repeat="version in product.versions track by $index">
+          <edit-versions version="version" index="$index" removemethod="removeVersion(version)"></edit-versions>
+        </div>
+        
+        <div class="form-group">         
+          <input type="button" ng-click="addVersion()" value="Add version" class="btn btn-default" />          
+        </div>
+
+        <div class="form-group">
+          <input type="submit" value="Update" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

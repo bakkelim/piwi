@@ -1,0 +1,33 @@
+<section ng-controller="PurchasesController" ng-init="find()">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Purchases</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" />
+      </div>
+    </div>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="purchase in purchases | filter:search" ui-sref="purchases.view({purchaseId: purchase._id})" class="list-group-item" set-sss-status expires="purchase.annualFees[0].expires">
+      <small class="list-group-item-text pull-right">
+        Created on
+        <span ng-bind="purchase.created | date:'mediumDate'"></span>
+        by
+        <span ng-bind="purchase.createdBy.displayName"></span>
+      </small>
+     <h4 class="list-group-item-heading">
+        {{purchase.product.title}} - {{purchase.company.name}}
+      </h4>      
+      <p class="list-group-item-text">       
+        <b>Price:</b> {{purchase.price}}   
+        <b>Annual fee:</b> {{purchase.annualFees[0].fee}}          
+        <b>$$$ expires:</b> {{purchase.annualFees[0].expires | date:'dd.MM.yyyy'}}     
+      </p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="purchases.$resolved && !purchases.length">
+    No purchases yet, why don't you <a ui-sref="purchases.create">create one</a>?
+  </div>
+</section>

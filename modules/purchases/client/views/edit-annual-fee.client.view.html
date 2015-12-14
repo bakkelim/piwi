@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-2">
+    <div class="form-group" show-errors>
+      <input name="annualFee{{vm.index}}" type="text" ng-model="vm.annualFee.fee" id="annualFee{{vm.index}}" class="form-control" placeholder="Annual fee" required />
+      <div ng-messages="productForm.annualFee.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Annual fee is required.</p>
+      </div>
+    </div>
+  </div>              
+  <div class="col-md-2">
+    <div class="form-group" show-errors>
+      <p class="input-group">
+        <input name="purchased{{vm.index}}" type="text" ng-model="vm.annualFee.purchased" id="purchased{{vm.index}}" class="form-control" placeholder="Purchase date" ng-required="true" uib-datepicker-popup="dd.MM.yyyy" is-open="vm.opened"  close-text="Close" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="vm.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+      <div ng-messages="productForm.purchased.$error" role="alert">
+        <p class="help-block error-text" ng-message="required">Purchase date is required.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1">
+    <input type="button" ng-click="vm.remove()" value="Remove" class="btn btn-default" />
+  </div>
+</div>

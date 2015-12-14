@@ -1,0 +1,102 @@
+<section ng-controller="ProductsController" ng-init="findOne(); findPurchases();">
+  <div class="page-header">
+    <h1>{{product.title}} <small>{{product.code}}</small></h1>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == product.createdBy._id">
+    <a class="btn btn-primary" ui-sref="products.edit({productId: product._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <!--<small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="product.created | date:'mediumDate'"></span>
+      by
+      <span ng-bind="product.createdBy.displayName"></span>
+    </em>
+  </small>-->
+  <div class="row"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Price:</b></p>
+    </div>
+    <div class="col-md-2"> 
+      <p class="lead">{{product.price}}</p>
+    </div>
+  </div>
+  <div class="row"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Annual Fee:</b></p>
+    </div>
+    <div class="col-md-2"> 
+      <p class="lead">{{product.annualFee}}</p>
+    </div>
+  </div>
+  <div class="row"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Owner:</b></p>
+    </div>
+    <div class="col-md-2"> 
+      <p class="lead">{{product.owner.displayName}}</p>
+    </div>
+  </div>
+  <div class="row" ng-if="product.description"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Description:</b></p>
+    </div>
+    <div class="col-md-2"> 
+      <p class="lead">{{product.description}}</p>
+    </div>
+  </div>
+  
+  <div class="row"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Versions:</b></p>
+    </div>
+    <div class="col-md-4"> 
+      <table class="table table-striped table-condensed table-bordered">
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>Released</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="version in product.versions">
+            <td>{{version.label}} </td>
+            <td>{{version.released | date:'dd.MM.yyyy'}}</td>
+          </tr>          
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+   <div class="row"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Purchases:</b></p>
+    </div>   
+  </div>
+  <div class="list-group">
+    <a ng-repeat="purchase in purchases | filter:search" ui-sref="purchases.view({purchaseId: purchase._id})" class="list-group-item" set-sss-status expires="purchase.annualFees[0].expires">
+      <small class="list-group-item-text pull-right">
+        Created on
+        <span ng-bind="purchase.created | date:'mediumDate'"></span>
+        by
+        <span ng-bind="purchase.createdBy.displayName"></span>
+      </small>
+     <h4 class="list-group-item-heading">
+        {{purchase.company.name}}
+      </h4>      
+      <p class="list-group-item-text">       
+        <b>Price:</b> {{purchase.price}}   
+        <b>Annual fee:</b> {{purchase.annualFees[0].fee}}          
+        <b>$$$ expires:</b> {{purchase.annualFees[0].expires | date:'dd.MM.yyyy'}}     
+      </p>
+    </a>
+  </div>
+   
+   
+  
+</section>

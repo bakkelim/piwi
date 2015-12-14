@@ -1,0 +1,87 @@
+<section ng-controller="ReportsController" ng-init="find()">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-md-4">
+        <h1>Reports</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" />
+      </div>
+      <div class="col-md-4" style="margin-top: 2em">
+        <input class="btn btn-default" type="button" value="Toggle report" ng-click="changeReport()" />
+      </div>
+    </div>
+  </div>
+  
+  <div class="alert alert-success text-center">
+    <div class="row">
+      <div class="col-md-4">
+        <span class="lead">
+        Sum price: <b>{{ getUberTotal(reports, 1)}}</b>
+        </span>
+      </div>
+      <div class="col-md-4">
+        <span class="lead">
+        Sum annual: <b>{{ getUberTotal(reports, 2)}}</b>
+        </span>
+      </div>
+      <div class="col-md-4">
+        <span class="lead">
+        Total: <b>{{ getUberTotal(reports, 3)}}</b>
+        </span>
+      </div>
+    </div>
+  </div>
+  <uib-accordion close-others="">
+    <uib-accordion-group ng-repeat="report in reports | filter:search" heading="" is-open="" is-disabled="">
+      <uib-accordion-heading>
+        <!--<div class="row">
+           <div class="col-md-6">
+        {{report.header}} <span class="small pull-right"> Price: {{ getTotal(report, 1)}} Annual: {{ getTotal(report, 2)}} Total: {{ getTotal(report, 3)}} </span>
+     </div>
+     </div>-->
+     
+      <div class="row">
+        <div class="col-md-6">
+          <b>{{report.header}}</b>
+        </div>
+       <div class="col-md-2 small">
+        Sum price: <b>{{ getTotal(report, 1)}}</b>
+      </div>
+      <div class="col-md-2 small">
+        Sum annual: <b>{{ getTotal(report, 2)}}</b>
+      </div>
+      <div class="col-md-2 small">
+        Total: <b>{{ getTotal(report, 3)}}</b>
+      </div>
+    </div>
+     
+      </uib-accordion-heading>
+      <table class="table table-striped table-condensed table-bordered" ng-repeat="item in report.content" >
+      <thead>
+        <tr>
+          <th ng-if="!reportByCompany" class="col-md-10">{{item.company.name}}</th>
+          <th ng-if="reportByCompany" class="col-md-10">{{item.product.title}}</th>
+          <th class="col-md-2">{{ getSubTotal(item, 3)}}</th>
+        </tr>
+      </thead>
+      <tbody class="small">    
+         <tr>   
+          <td><b>Price</b></td>      
+          <td><b>{{item.price}}</b></td>         
+        </tr>       
+        <tr ng-repeat="annual in item.annualFees">          
+          <td>Annual per {{annual.purchased | date:'dd.MM.yyyy'}}</td>
+          <td>{{annual.fee}}</td>     
+        </tr>          
+      </tbody>  
+      <tfoot class="small">
+        <tr>
+          <td><b>Sum annual</td>
+          <td><b>{{ getSubTotal(item, 2)}}</b></td>
+        </tr>
+      </tfoot>   
+    </table>
+    </uib-accordion-group>   
+  </uib-accordion>
+</section>

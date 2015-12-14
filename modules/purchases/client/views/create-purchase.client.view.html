@@ -1,0 +1,79 @@
+<section ng-controller="PurchasesController" ng-init="findProducts(); findCompanies();">
+  <div class="page-header">
+    <h1>New Purchase</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="purchaseForm" class="form-horizontal" ng-submit="create(purchaseForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group">
+          <label for="product">Product</label>
+          <ui-select ng-model="$parent.selectedProduct" on-select="onSelected($item)">
+            <ui-select-match>
+              <span ng-bind="$select.selected.title"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="product in (products | filter: $select.search) track by product._id">
+              <span ng-bind="product.title"></span>
+            </ui-select-choices>
+          </ui-select>        
+        </div>
+        
+        <div class="form-group">
+          <label for="company">Company</label>
+          <ui-select ng-model="$parent.selectedCompany">
+            <ui-select-match>
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="company in (companies | filter: $select.search) track by company._id">
+              <span ng-bind="company.name"></span>
+            </ui-select-choices>
+          </ui-select>        
+        </div>
+        
+        <div class="form-group" show-errors>
+          <label for="price">Price</label>
+          <input name="price" type="number" ng-model="price" ng-change="annualFee = (price * 0.20)" id="price" class="form-control" placeholder="Product price" required>
+          <div ng-messages="productForm.price.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Product price is required.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group" show-errors>
+              <label for="annualFee">$$$</label>
+              <input name="annualFee" type="text" ng-model="annualFee" id="annualFee" class="form-control" placeholder="Annual fee" required>
+              <div ng-messages="productForm.annualFee.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Annual Fee is required.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group" show-errors>
+              <label for="purchased">Purchase date</label>
+              <p class="input-group">
+                <input name="purchased" type="text" ng-model="purchased" ng-init="purchased = today()" id="purchased" class="form-control" placeholder="Purchase date"  ng-required="true" uib-datepicker-popup="dd.MM.yyyy" is-open="openedCreate"  close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="openCreate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+              <div ng-messages="productForm.released.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Release date is required.</p>
+              </div>
+            </div>
+          </div>
+        </div>       
+        
+        <div class="form-group">
+          <label for="description">Comments</label>
+          <textarea name="description" ng-model="description" id="description" class="form-control" cols="30" rows="10" placeholder="Comments"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

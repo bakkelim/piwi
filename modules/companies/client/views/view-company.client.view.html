@@ -1,0 +1,53 @@
+<section ng-controller="CompaniesController" ng-init="findOne(); findPurchases();">
+  <div class="page-header">
+    <h1 ng-bind="company.name"></h1>
+  </div>
+  <div class="pull-right" ng-show="authentication.user._id == company.createdBy._id">
+    <a class="btn btn-primary" ui-sref="companies.edit({companyId: company._id})">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="remove();">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <!--<small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="company.created | date:'mediumDate'"></span>
+      by
+      <span ng-bind="company.createdBy.displayName"></span>
+    </em>
+  </small>-->
+  <div class="row" ng-if="company.description"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Description:</b></p>
+    </div>
+    <div class="col-md-2"> 
+      <p class="lead">{{company.description}}</p>
+    </div>
+  </div>
+  
+  <div class="row"> 
+    <div class="col-md-2"> 
+      <p class="lead"><b>Products:</b></p>
+    </div>   
+  </div>
+   <div class="list-group">
+    <a ng-repeat="purchase in purchases | filter:search" ui-sref="purchases.view({purchaseId: purchase._id})" class="list-group-item" set-sss-status expires="purchase.annualFees[0].expires">
+      <small class="list-group-item-text pull-right">
+        Created on
+        <span ng-bind="purchase.created | date:'mediumDate'"></span>
+        by
+        <span ng-bind="purchase.createdBy.displayName"></span>
+      </small>
+     <h4 class="list-group-item-heading">
+        {{purchase.product.title}}
+      </h4>      
+      <p class="list-group-item-text">       
+        <b>Price:</b> {{purchase.price}}   
+        <b>Annual fee:</b> {{purchase.annualFees[0].fee}}          
+        <b>$$$ expires:</b> {{purchase.annualFees[0].expires | date:'dd.MM.yyyy'}}     
+      </p>
+    </a>
+  </div>
+</section>
