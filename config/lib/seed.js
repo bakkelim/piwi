@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
       var password = crypto.randomBytes(64).toString('hex').slice(1, 20);
       var user = new User({
         username: 'admin',
-        password: password,
+        password: 'password',
         provider: 'local',
         email: 'admin@localhost.com',
         firstName: 'Admin',
