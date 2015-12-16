@@ -12,11 +12,17 @@ angular.module('reports').config(['$stateProvider',
       })
       .state('reports.list', {
         url: '',
-        templateUrl: 'modules/reports/client/views/list-reports.client.view.html'
+        templateUrl: 'modules/reports/client/views/list-reports.client.view.html',
+         data: {
+          roles: ['admin', 'user']
+        }
       })
       .state('reports.view', {
         url: '/:reportId',
-        templateUrl: 'modules/reports/client/views/view-report.client.view.html'
+        templateUrl: 'modules/reports/client/views/view-report.client.view.html',
+         data: {
+          roles: ['admin', 'user']
+        }
       });
   }
 ]);

@@ -12,7 +12,10 @@ angular.module('companies').config(['$stateProvider',
       })
       .state('companies.list', {
         url: '',
-        templateUrl: 'modules/companies/client/views/list-companies.client.view.html'
+        templateUrl: 'modules/companies/client/views/list-companies.client.view.html',
+         data: {
+          roles: ['admin', 'user']
+        }
       })
       .state('companies.create', {
         url: '/create',
@@ -23,7 +26,10 @@ angular.module('companies').config(['$stateProvider',
       })
       .state('companies.view', {
         url: '/:companyId',
-        templateUrl: 'modules/companies/client/views/view-company.client.view.html'
+        templateUrl: 'modules/companies/client/views/view-company.client.view.html',
+         data: {
+          roles: ['admin', 'user']
+        }
       })
       .state('companies.edit', {
         url: '/:companyId/edit',

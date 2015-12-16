@@ -8,13 +8,14 @@ angular.module('products').run(['Menus',
       title: 'Products',
       state: 'products',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin','user']
     });
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'products', {
       title: 'List Products',
-      state: 'products.list'
+      state: 'products.list',
+      roles: ['admin','user']
     });
 
     // Add the dropdown create item

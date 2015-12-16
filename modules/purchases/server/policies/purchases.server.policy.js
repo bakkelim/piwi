@@ -42,21 +42,6 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/purchases-expires',
       permissions: ['get']
     }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/purchases',
-      permissions: ['get']
-    }, {
-      resources: '/api/purchases/:purchaseId',
-      permissions: ['get']
-    }, {
-      resources: '/api/purchases-expired',
-      permissions: ['get']
-    }, {
-      resources: '/api/purchases-expires',
-      permissions: ['get']
-    }]
   }]);
 };
 

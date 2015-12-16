@@ -4,18 +4,21 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
   function ($scope, Authentication, ProductsNew, PurchasesExpired, PurchasesExpires) {
     // This provides Authentication context.
     $scope.authentication = Authentication;
-    
+    console.log($scope.authentication);
     // Find a list of products
     $scope.findProducts = function () {
-      $scope.newProducts = ProductsNew.query();
+      if($scope.authentication.user)
+        $scope.newProducts = ProductsNew.query();
     };
     
     $scope.expiredPurchases = function () {
-      $scope.expired = PurchasesExpired.query();
+      if($scope.authentication.user)
+        $scope.expired = PurchasesExpired.query();
     };
     
     $scope.expiresPurchases = function () {
-      $scope.expires = PurchasesExpires.query();
+      if($scope.authentication.user)
+        $scope.expires = PurchasesExpires.query();
     };
   }
 ]);

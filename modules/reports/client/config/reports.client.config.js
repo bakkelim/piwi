@@ -8,14 +8,14 @@ angular.module('reports').run(['Menus',
       title: 'Reports',
       state: 'reports',
       type: 'dropdown',
-      roles: ['admin']
+      roles: ['admin', 'user']
     });
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'reports', {
       title: 'List Reports',
       state: 'reports.list',
-      roles: ['admin']
+      roles: ['admin', 'user']
     });
   }
 ]);

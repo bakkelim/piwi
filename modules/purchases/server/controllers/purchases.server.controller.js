@@ -117,11 +117,13 @@ exports.listByExpired = function (req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      purchases.forEach(function (purchase, index, object){        
-        if(purchase.annualFees[0].expires > new Date())
-          object.splice(index, 1);
+    } else {      
+      purchases.slice().reverse().forEach(function(purchase, index, object) {
+        if (purchase.annualFees[0].expires > new Date()) {
+          purchases.splice(object.length - 1 - index, 1);
+        }
       });
+      
       res.json(purchases);
     }
   });
@@ -141,10 +143,11 @@ exports.listByExpires = function (req, res) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      purchases.forEach(function (purchase, index, object){        
-        if(purchase.annualFees[0].expires > d)
-          object.splice(index, 1);
+    } else {     
+      purchases.slice().reverse().forEach(function(purchase, index, object) {
+        if (purchase.annualFees[0].expires > d) {
+          purchases.splice(object.length - 1 - index, 1);
+        }
       });
       res.json(purchases);
     }

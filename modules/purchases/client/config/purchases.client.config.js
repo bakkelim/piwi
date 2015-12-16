@@ -8,20 +8,21 @@ angular.module('purchases').run(['Menus',
       title: 'Purchases',
       state: 'purchases',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin','user']
     });
 
     // Add the dropdown list item
     Menus.addSubMenuItem('topbar', 'purchases', {
       title: 'List Purchases',
-      state: 'purchases.list'
+      state: 'purchases.list',
+      roles: ['admin','user']
     });
 
     // Add the dropdown create item
     Menus.addSubMenuItem('topbar', 'purchases', {
       title: 'Create Purchases',
       state: 'purchases.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 ]);

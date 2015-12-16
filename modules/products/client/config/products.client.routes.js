@@ -12,7 +12,10 @@ angular.module('products').config(['$stateProvider',
       })
       .state('products.list', {
         url: '',
-        templateUrl: 'modules/products/client/views/list-products.client.view.html'
+        templateUrl: 'modules/products/client/views/list-products.client.view.html',
+         data: {
+          roles: ['admin', 'user']
+        }
       })
       .state('products.create', {
         url: '/create',
@@ -23,7 +26,10 @@ angular.module('products').config(['$stateProvider',
       })
       .state('products.view', {
         url: '/:productId',
-        templateUrl: 'modules/products/client/views/view-product.client.view.html'
+        templateUrl: 'modules/products/client/views/view-product.client.view.html',
+         data: {
+          roles: ['admin', 'user']
+        }
       })
       .state('products.edit', {
         url: '/:productId/edit',
